@@ -7,6 +7,10 @@ to process gzipped JSON files from S3 and output Parquet files.
 Environment variables:
     INPUT_BUCKET: S3 bucket containing source JSON files
     OUTPUT_BUCKET: S3 bucket for output Parquet files
+    CONFIG_PATH: Path to field mapping configuration (default: config.json)
+
+TIP: Use rowhouse.discover to analyze new JSON sources and find the
+     right split_path. See examples/discover_example.py for details.
 
 Requirements:
     - rowhouse (this package)
@@ -95,6 +99,8 @@ def lambda_handler(event, context):
         input_handler = S3Handler(bucket=input_bucket)
         output_handler = S3Handler(bucket=output_bucket)
 
+        # split_path routes documents to configs based on this field's value
+        # Use rowhouse.discover.StructureAnalyzer to find the best split_path
         processor = JsonProcessor(
             split_path=['header', 'action'],  # Customize for your JSON structure
             config=config

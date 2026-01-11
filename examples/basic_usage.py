@@ -2,6 +2,14 @@
 """
 Basic usage example for Unfurl (part of Rowhouse).
 
+This example shows how to flatten nested JSON into tabular data.
+The split_path parameter tells JsonProcessor which field routes
+documents to different configurations.
+
+TIP: If you don't know the right split_path for new data, use
+     rowhouse.discover to analyze the JSON structure first.
+     See examples/discover_example.py for details.
+
 Run from the rowhouse directory:
     python examples/basic_usage.py
 """
