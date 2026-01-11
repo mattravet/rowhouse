@@ -1,0 +1,44 @@
+{
+  "OrderCreated": {
+    "table_name": "orders",
+    "fields": [
+      {"source": "header.action", "alias": "action", "type": "string"},
+      {"source": "header.timestamp", "alias": "created_at", "type": "timestamp"},
+      {"source": "header.requestId", "alias": "request_id", "type": "string"},
+      {"source": "body.orderId", "alias": "order_id", "type": "string"},
+      {"source": "body.customerId", "alias": "customer_id", "type": "string"},
+      {"source": "body.items[].sku", "alias": "sku", "type": "string"},
+      {"source": "body.items[].name", "alias": "item_name", "type": "string"},
+      {"source": "body.items[].quantity", "alias": "quantity", "type": "integer"},
+      {"source": "body.items[].price", "alias": "price", "type": "float"}
+    ]
+  },
+  "MeterValues": {
+    "table_name": "meter_readings",
+    "fields": [
+      {"source": "header.action", "alias": "action", "type": "string"},
+      {"source": "header.stationId", "alias": "station_id", "type": "string"},
+      {"source": "header.connectorId", "alias": "connector_id", "type": "integer"},
+      {"source": "body.transactionId", "alias": "transaction_id", "type": "integer"},
+      {"source": "body.meterValue[].timestamp", "alias": "timestamp", "type": "timestamp"},
+      {"source": "body.meterValue[].sampledValue[].measurand", "alias": "measurand", "type": "string"},
+      {"source": "body.meterValue[].sampledValue[].value", "alias": "value", "type": "string"},
+      {"source": "body.meterValue[].sampledValue[].unit", "alias": "unit", "type": "string"},
+      {"source": "body.meterValue[].sampledValue[].context", "alias": "context", "type": "string"}
+    ]
+  },
+  "UserActivity": {
+    "table_name": "user_events",
+    "fields": [
+      {"source": "header.action", "alias": "action", "type": "string"},
+      {"source": "header.userId", "alias": "user_id", "type": "string"},
+      {"source": "header.sessionId", "alias": "session_id", "type": "string"},
+      {"source": "metadata.source.system.name", "alias": "source_system", "type": "string"},
+      {"source": "metadata.source.system.version", "alias": "source_version", "type": "string"},
+      {"source": "data.events[].eventType", "alias": "event_type", "type": "string"},
+      {"source": "data.events[].timestamp", "alias": "event_time", "type": "timestamp"},
+      {"source": "data.events[].properties.page", "alias": "page", "type": "string"},
+      {"source": "data.events[].properties.duration", "alias": "duration_ms", "type": "integer"}
+    ]
+  }
+}

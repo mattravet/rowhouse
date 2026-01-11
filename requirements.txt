@@ -1,0 +1,11 @@
+# Core
+pandas>=2.0.0
+pyarrow>=14.0.0
+numpy>=1.24.0
+
+# AWS (optional)
+boto3>=1.28.0
+
+# Development
+pytest>=7.0.0
+moto>=4.0.0
