@@ -98,7 +98,11 @@ class JsonProcessor:
                 continue
 
             remaining = path[len(path_parts):]
+
+            # Handle exact path match - data itself is the value
+            # This happens for root-level fields when path_parts equals the full path
             if not remaining:
+                current_row[field['alias']] = data
                 continue
 
             next_part = remaining[0]

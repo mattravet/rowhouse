@@ -5,11 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "rowhouse"
 version = "0.1.0"
-description = "Data tools for building ETL pipelines - includes unfurl (JSON flattening), validation, and AWS utilities"
+description = "Data tools for building ETL pipelines - includes unfurl (JSON flattening), discover (schema analysis), validation, and AWS utilities"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.9"
-keywords = ["aws", "s3", "etl", "data-processing", "parquet", "json", "flatten", "unfurl", "validation", "dataframe"]
+keywords = ["aws", "s3", "etl", "data-processing", "parquet", "json", "flatten", "unfurl", "validation", "dataframe", "schema-discovery"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -39,7 +39,7 @@ Homepage = "https://github.com/mattravet/rowhouse"
 Repository = "https://github.com/mattravet/rowhouse"
 
 [tool.setuptools.packages.find]
-include = ["unfurl*", "validation*", "aws*"]
+include = ["unfurl*", "discover*", "validation*", "common*", "aws*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

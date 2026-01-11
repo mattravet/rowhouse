@@ -65,6 +65,43 @@ config = {
 - Boolean variants: `"yes"`, `"no"`, `"1"`, `"0"`, `"true"`, `"false"`
 - Invalid values become `NULL` instead of crashing
 
+### Discover (`rowhouse.discover`)
+
+Analyze JSON structure and automatically find the best splitter field for JsonProcessor.
+
+```python
+from rowhouse.discover import StructureAnalyzer
+
+analyzer = StructureAnalyzer()
+
+# Auto-detect the best splitter field
+results = analyzer.find_splitters(documents)
+print(results[0])
+# SplitterResult(field='header.action', score=3.76, values=5, coverage=100.0%)
+
+# Use it with JsonProcessor
+best = results[0]
+processor = JsonProcessor(split_path=best.field.split('.'), config)
+
+# Get a human-readable summary
+print(analyzer.describe(documents))
+# Documents analyzed: 1,000
+# Unique paths: 47
+# Candidate splitters:
+#   header.action (5 values, score: 3.76) ← RECOMMENDED
+#   header.version (3 values, score: 1.2)
+#
+# Structure by header.action:
+#   "OrderCreated" (412 docs): body.items[], body.customer.*
+#   "UserCreated" (301 docs): body.user.*, body.preferences[]
+```
+
+**Features:**
+- Automatic splitter detection using Jaccard similarity
+- Configurable grouping (explicit field, custom function, auto-detect)
+- Pluggable similarity strategies
+- Terminal-friendly `describe()` output
+
 ### Validation (`rowhouse.validation`)
 
 Data validation and type conversion utilities for DataFrames.
@@ -167,15 +204,20 @@ See `examples/unfurl_lambda.py` for a complete AWS Lambda example.
 rowhouse/
 ├── unfurl/              # JSON flattening
 │   └── json_processor.py
+├── discover/            # Structure analysis
+│   ├── analyzer.py
+│   └── similarity.py
 ├── validation/          # Data validation
 │   └── validator.py
+├── common/              # Shared utilities
+│   └── paths.py
 ├── aws/                 # AWS utilities
 │   └── s3.py
 ├── examples/
 │   ├── basic_usage.py
 │   ├── unfurl_lambda.py
 │   └── sample_config.json
-└── tests/               # 101 tests
+└── tests/               # 131 tests
 ```
 
 ## Testing
